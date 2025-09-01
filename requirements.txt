@@ -1,0 +1,9 @@
+pandas
+numpy
+pyspark
+ipykernel
+requests
+beautifulsoup4
+pyYaml
+python_box==6.0.2
+ensure==1.0.2
