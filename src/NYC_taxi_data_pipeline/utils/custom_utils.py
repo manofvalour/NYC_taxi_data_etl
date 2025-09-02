@@ -10,7 +10,7 @@ from box.exceptions import BoxValueError
 
 
 @ensure_annotations
-def read_yaml(path_to_yaml: str)->ConfigBox:
+def read_yaml(path_to_yaml: Path)->ConfigBox:
         
     """ reads yaml file and returns
         

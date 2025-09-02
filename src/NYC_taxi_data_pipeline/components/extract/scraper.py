@@ -2,20 +2,25 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from datetime import datetime, timedelta
-import io
 import time
-from typing import List
-import pandas as pd
 from pyspark.sql import SparkSession
 import tempfile
+from dotenv import load_dotenv
+load_dotenv()
+
+import os, sys
+
+from src.NYC_taxi_data_pipeline.exception.custom_exception import NycTaxiException
+from src.NYC_taxi_data_pipeline.logger.logger import logger
+
 
 
 class ExtractData:
-    def __init__(self,start_date:str, end_date:str):
+    def __init__(self,start_date:str, end_date:str, spark:SparkSession):
 
       self.start_date = datetime.strptime(start_date, "%Y-%m-%d")
       self.end_date = datetime.strptime(end_date, "%Y-%m-%d")
-      self.spark = SparkSession.builder.appName('NYC_taxi').getOrCreate()
+      self.spark = spark
 
 
     def extract_nyc_yellow_taxi_data(self,
@@ -77,12 +82,14 @@ class ExtractData:
         return (f"Error: {e}")
       
 
-    def extract_nyc_network_data(self, API_KEY: str,
+    def extract_nyc_network_data(self,
                                 location: str = "New York NY United States",
                                 base_url: str = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline"):
-
+        
         start_date = self.start_date
         end_date = self.end_date
+        api_key = os.getenv('API_KEY')
+        
 
         current_date = start_date
 
@@ -99,7 +106,7 @@ class ExtractData:
 
             params = {
                 "unitGroup": "us",
-                "key": API_KEY,
+                "key": api_key,
                 "include": "days,hours,current,alerts,stations",
                 "contentType": "json"
             }

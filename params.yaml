@@ -1,0 +1,5 @@
+EXTRACT_PARAMS:
+    "unitGroup": "us"
+    "include": "days,hours,current,alerts,stations"
+    "contentType": "json"
+       

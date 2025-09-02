@@ -1,3 +1,6 @@
 DATA_EXTRACTION_CONFIG:
-  'url': "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
-  
+  'taxi_url': "https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page"
+  'weather_url': "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline"
+  'Artifact_dir': 'artifacts'
+  'extracted_taxi_data_dir': 'artifacts/nyc_taxi_data'
+  'extracted_weather_data_dir': 'artifacts/nyc_weather_data'
